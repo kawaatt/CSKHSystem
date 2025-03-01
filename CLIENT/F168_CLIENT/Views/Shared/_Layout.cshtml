@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F168 - TRUNG TÂM CHĂM SÓC KHÁCH HÀNG 24/7</title>
+    <meta name="keywords" content="F168" />
+    <meta name="author" content="F168" />
+    <meta property="og:image" content="#" />
+    <link rel="icon" type="image/x-icon" href="~/assets/images/F168/logoF168.png" />
+    <link rel="canonical" href="" />
+    <meta name="description" content="" />
+
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="F168" />
+    <meta property="og:image" content="" />
+    <meta property="article:section" content="" />
+    <meta property="article:tag" content="" />
+    <meta property="og:updated_time" content="2023-10-11T07:22:34+00:00" />
+    <link rel="stylesheet" href="~/assets/css/reset.css" />
+    <link rel="stylesheet" href="~/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="~/assets/css/speed-link.css?v=18" />
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.css" />
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="~/assets/css/main.css" asp-append-version="true" />
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.0/sweetalert2.css" rel="stylesheet" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ5WC64X00"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QQ5WC64X00');
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container wp-header">
+            <div class="logo-slogan">
+                <div class="thumb-nail">
+                    <img src="./assets/images/F168/F168-logo.png" alt="" srcset="" />
+                </div>
+
+            </div>
+
+            <div class="menu-header">
+                <ul>
+                    <li>
+                        <a id="btn-inside-dangnhap" class="btn-inside" href="https://f1689.online/trangchu">ĐĂNG NHẬP</a>
+                    </li>
+                    <li>
+                        <a class="btn-inside" href="https://f1689.online/trangchu">ĐĂNG KÝ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
+    @RenderBody()
+    <!-- Main Content -->
+    <!-- Footer -->
+    <div class="footer">
+        <div class="thumbnail-ft">
+            <img src="./assets/images/F168/logoF168.png" />
+        </div>
+    </div>
+    <!-- End Footer -->
+
+    <!-- Form Modal Custom -->
+    <div class="form-modal form-check-ticket">
+        <div class="form-modal-layout"></div>
+        <div class="form-modal-custom">
+            <div class="wp-close">
+                <img class="w-100" src="./assets/images/F168/btn-close.png" alt="" srcset="">
+            </div>
+            <div class="title-top">TRA CỨU VÉ HỖ TRỢ</div>
+            <div class="wp-form">
+
+                <div class="wp-account-check">
+                    <div class="col-sm-6">
+                        <label class="form-label fs-base" for="c-fn">Tài khoản</label>
+                        <div class="form-control">
+                            <input type="text" placeholder="Nhập tên tài khoản F168" required="" id="c-account">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="form-label fs-base" for="c-phone">4 Số Cuối liên kết TK</label>
+                        <div class="form-control">
+                            <input type="password" maxlength="4" placeholder="__ __ __ __" required="" id="c-cardholder" oninput="checkLength(this)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-control recapcha-input">
+                    <label class="form-label fs-base" for="c-fn">Mã xác minh</label>
+                    <input type="text" name="captcha" id="c-captcha" onpaste="return false;" placeholder="Mã xác minh">
+                    <div class="recapcha" id="recaptcha"></div>
+                </div>
+
+                <div class="btn-search btn-check-result">
+                    <button onclick="CheckAccountForClaimReward();" type="button">TRA CỨU NGAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-modal form-check-list-ticket">
+        <div class="form-modal-layout"></div>
+        <div class="form-modal-custom">
+            <div class="wp-close">
+                <img class="w-100" src="./assets/images/F168/btn-close.png" alt="" srcset="">
+            </div>
+            <div class="title-top">DANH SÁCH YÊU CẦU</div>
+            <div class="wp-form">
+                <div class="row">
+                    <div class="ticket-request-list">
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-search btn-check-result">
+                <button id="btnSendNewRequestTicket" type="button">Tạo yêu cầu hỗ trợ</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Form Modal Custom -->
+
+    <div class="form-modal form-check-result">
+        <div class="form-modal-layout"></div>
+        <div class="form-modal-history">
+            <div class="wp-close">
+                <img class="w-100" src="./assets/images/F168/btn-close-yellow.png" alt="" srcset="">
+            </div>
+            <div id="result-check">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-modal form-add-new-ticket">
+        <div class="form-modal-layout"></div>
+        <div class="form-modal-custom">
+            <div class="wp-close">
+                <img class="w-100" src="./assets/images/F168/btn-close-yellow.png" alt="" srcset="">
+            </div>
+            <div class="title-top">GỬI YÊU CẦU HỖ TRỢ</div>
+            <form id="SendTickRequestForm">
+                <div class="wp-form">
+                    <div class="col-12 wp-account-check">
+                        <div class="col-sm-6">
+                            <label class="form-label fs-base" for="c-fn">Tài khoản</label>
+                            <div class="form-control">
+                                <input id="SendTicketRequest_Account" name="SendTicketRequest_Account" type="text" placeholder="Nhập tên tài khoản F168" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="form-label fs-base" for="c-phone">4 Số Cuối liên kết TK</label>
+                            <div class="form-control">
+                                <input type="password" maxlength="4" placeholder="__ __ __ __" required="" id="SendTicketRequest_CardHolder" name="SendTicketRequest_CardHolder" oninput="checkLength(this)">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12  form-control">
+                        <div class="form-control">
+                            <label class="form-label fs-base" for="c-support-topic">Chủ đề hỗ trợ</label>
+                            <select id="SendTicketRequest_TicketCategory" name="SendTicketRequest_TicketCategory" class="form-control" required>
+                                <option value="8D31EC4E-7358-40FC-80EB-15713970F2C5">ĐƠN RÚT TIỀN</option>
+                                <option value="91A4D714-2729-4971-8B76-AC6220908E0B">SỬA THÔNG TIN</option>
+                                <option value="572B9965-52CC-4815-AFB7-B3F589BB7DD5">KHUYẾN MÃI</option>
+                                <option value="663ACBA9-866E-4799-9BD5-C32C2D2705C2">ĐƠN NẠP TIỀN</option>
+                                <option value="750714D6-DCEF-404F-B6C0-CC1AE9BAF9D9">MÃ VÉ CƯỢC</option>
+                                <option value="BB8D5CC2-598E-47EE-9793-EA48FFEF1A3C">VẤN ĐỀ KHÁC</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-control">
+                        <label class="lable-form">Tải hóa đơn :</label>
+                        <div class="file-upload-box ">
+                            <input type="file" id="fileupload" multiple=""
+                                    class="file-upload-input" />
+
+                            <div id="el-image-upload" class="icon-image-upload d-flex justify-content-center align-items-center"></div>
+
+                            <div class="icon-image-upload upload">
+                                <div class="thumb-icon">
+                                    <img src="~/assets/images/F168/icon-upload.png">
+                                </div>
+                                <div class="text-upload">Bấm vào đây để tải ảnh hoặc video</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12  form-control">
+                        <label class="form-label fs-base" for="c-phone">Nội dung phản ánh</label>
+                        <div class="form-control">
+                            <textarea rows="3" id="SendTicketRequest_TicketContent" name="SendTicketRequest_TicketContent" style="color:#000;"></textarea>
+                        </div>
+                    </div>
+                
+
+                    <div class="btn-search btn-check-result">
+                        <button id="btnSendNewTicketRequest" onclick="SendTicketRequest();" type="button">GỬI</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="~/assets/js/main.js" asp-append-version="true"></script>
+<script src="~/assets/js/site.js" asp-append-version="true"></script>
+<script src="~/assets/js/SendTicketRequest.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.0/sweetalert2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 18727086;
+    window.__lc.integration_name = "manual_onboarding";
+    window.__lc.product_name = "livechat";
+    ; (function (n, t, c) { function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) } var e = { _q: [], _h: null, _v: "2.0", on: function () { i(["on", c.call(arguments)]) }, once: function () { i(["once", c.call(arguments)]) }, off: function () { i(["off", c.call(arguments)]) }, get: function () { if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get", c.call(arguments)]) }, call: function () { i(["call", c.call(arguments)]) }, init: function () { var n = t.createElement("script"); n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n) } }; !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e }(window, document, [].slice))
+</script>
+<noscript>
+    <a href="https://www.livechat.com/chat-with/18727086/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a>
+</noscript>
+<!-- End of LiveChat code -->
+
+
+</html>

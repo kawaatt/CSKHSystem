@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\CODE_PP\ATT\CSKH_SUPPORT_AUTOMATICALLY\DEV1\API\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2025-01-30T12:41:06.8482014Z||;True|2025-01-30T19:40:11.0413357+07:00||;True|2025-01-30T19:24:18.3602551+07:00||;True|2025-01-30T18:16:31.8157175+07:00||;True|2025-01-30T18:07:43.2543862+07:00||;True|2025-01-30T17:48:11.1205025+07:00||;False|2025-01-30T17:39:37.9789376+07:00||;True|2025-01-30T16:20:25.9844277+07:00||;True|2025-01-30T09:59:35.8920177+07:00||;True|2025-01-30T09:33:54.3737929+07:00||;True|2025-01-30T09:26:42.7419421+07:00||;True|2025-01-30T09:23:30.9549727+07:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

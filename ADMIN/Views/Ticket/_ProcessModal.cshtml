@@ -1,0 +1,309 @@
+﻿@model TicketRequestDTO
+@if (Model != null)
+{
+    if (Model.TicketHistories.Count == 0)
+    {
+        <div class="card theme-wizard" data-theme-wizard="data-theme-wizard"  >
+            <div class="card-body pt-4 pb-0"  >
+                <div class="row justify-content-between"  >
+                    <div class="col-3"  >
+                        <div class="scrollbar mb-4"  >
+                            <ul class="nav justify-content-between flex-nowrap nav-wizard nav-wizard-vertical-md" role="tablist">
+                                <li class="nav-item active" role="presentation">
+                                    <a class="nav-link active py-0 py-md-3" href="#bootstrap-vertical-wizard-tab1" data-bs-toggle="tab" data-wizard-step="1" aria-selected="true" role="tab">
+                                        <div class="text-center d-inline-block d-md-flex align-items-center gap-3"  ><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-file nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"></path></svg><!-- <span class="fa-solid fa-file nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Tiếp nhận</span></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item disabled" role="presentation">
+                                    <a class="nav-link py-0 py-md-3" href="#bootstrap-vertical-wizard-tab2" data-bs-toggle="tab" data-wizard-step="2" aria-selected="false" tabindex="-1" role="tab">
+                                        <div class="text-center d-inline-block d-md-flex align-items-center gap-3"  ><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-location-dot nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="location-dot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path></svg><!-- <span class="fa-solid fa-location-dot nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Xử lý</span></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item disabled" role="presentation">
+                                    <a class="nav-link py-0 py-md-3" href="#bootstrap-vertical-wizard-tab4" data-bs-toggle="tab" data-wizard-step="4" aria-selected="false" tabindex="-1" role="tab">
+                                        <div class="text-center d-inline-block d-md-flex align-items-center gap-3"  ><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-images nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="images" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M160 32c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160zM396 138.7l96 144c4.9 7.4 5.4 16.8 1.2 24.6S480.9 320 472 320H328 280 200c-9.2 0-17.6-5.3-21.6-13.6s-2.9-18.2 2.9-25.4l64-80c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l17.3 21.6 56-84C360.5 132 368 128 376 128s15.5 4 20 10.7zM192 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V344c0 75.1 60.9 136 136 136H456c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z"></path></svg><!-- <span class="fa-solid fa-images nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Hoàn thành</span></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-9"  >
+                        <div class="tab-content"  >
+                            <div class="tab-pane active show" role="tabpanel" aria-labelledby="AcceptTicketTab" id="AcceptTicketTab">
+                                <div class="card-body" style="font-size:13px;"  >
+                                    <div  >
+                                        <div class="row">
+                                            <div class="col-4 d-flex justify-content-start gap-2  align-items-center"  >
+                                                <p class="text-body fw-semibold">Tài khoản:</p>
+                                                <p class="text-danger fw-semibold">@Model.Account</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2 align-items-center"  >
+                                                <p class="text-body fw-semibold">Chủ đề:</p>
+                                                <p class="fw-semibold">@Model.TicketCategory.CategoryName</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                <p class="text-body fw-semibold">Hình ảnh:</p>
+                                                <div class="avatar avatar-xl me-2" style="margin-top:-20px;"  >
+                                                    <a href="" target="_blank"><img class="rounded-circle " src="@Model.ImageURL" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="text-body fw-semibold m-0">Nội dung phản hồi:</p>
+                                                </div>
+                                                <div class="col-12 pb-2">
+                                                    <textarea disabled class="form-control w-100" rows="2" style="text-align: justify;">@Model.TicketContent</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer p-2 border-0 d-flex justify-content-center" data-wizard-footer="data-wizard-footer"  >
+                <div class="d-flex pager wizard list-inline mb-0"  >
+                    <button class="d-none btn btn-link ps-0" type="button" data-wizard-prev-btn="data-wizard-prev-btn"><svg class="svg-inline--fa fa-chevron-left me-1" data-fa-transform="shrink-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="" style="transform-origin: 0.3125em 0.5em;"><g transform="translate(160 256)"><g transform="translate(0, 0)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" transform="translate(-160 -256)"></path></g></g></svg>Tiếp nhận</button>
+                    <div class="flex-1 text-end"  ><button onclick="onAcceptTicketFunction('@Model.ID');" class="btn btn-primary px-6 px-sm-6" data-wizard-next-btn="data-wizard-next-btn">Tiếp nhận<svg class="svg-inline--fa fa-chevron-right ms-1" data-fa-transform="shrink-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="" style="transform-origin: 0.3125em 0.5em;"><g transform="translate(160 256)"><g transform="translate(0, 0)  scale(0.8125, 0.8125)  rotate(0 0 0)"><path fill="currentColor" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" transform="translate(-160 -256)"></path></g></g></svg></button></div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @if (!Model.TicketHistories.Any(x => x.TicketStatusValue == 3))
+        {
+            <div class="card theme-wizard" data-theme-wizard="data-theme-wizard"  >
+                <div class="card-body pt-4 pb-0"  >
+                    <div class="row justify-content-between"  >
+                        <div class="col-3"  >
+                            <div class="scrollbar mb-4"  >
+                                <ul class="nav justify-content-between flex-nowrap nav-wizard nav-wizard-vertical-md" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link disabled active py-0 py-md-3" href="#bootstrap-vertical-wizard-tab1" data-bs-toggle="tab" data-wizard-step="1" aria-selected="true" role="tab">
+                                            <div class="text-center d-inline-block d-md-flex align-items-center gap-3"  >
+                                                <span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-file nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"></path></svg><!-- <span class="fa-solid fa-file nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span>
+                                                <span class="nav-item-title fs-9 fs-xl-8">Tiếp nhận</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    @{
+                                        int NumberOfTicketStatus = Model.TicketHistories.Count(x => x.TicketStatusValue == 2);
+                                        for (int i = 0; i < NumberOfTicketStatus; i++)
+                                        {
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link disabled active py-0 py-md-3" href="#bootstrap-vertical-wizard-tab2" data-bs-toggle="tab" data-wizard-step="2" aria-selected="false" tabindex="-1" role="tab">
+                                                    <div class="text-center d-inline-block d-md-flex align-items-center gap-3"><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-location-dot nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="location-dot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path></svg><!-- <span class="fa-solid fa-location-dot nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Xử lý</span></div>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link disabled py-0 py-md-3" href="#bootstrap-vertical-wizard-tab4" data-bs-toggle="tab" data-wizard-step="4" aria-selected="false" tabindex="-1" role="tab">
+                                            <div class="text-center d-inline-block d-md-flex align-items-center gap-3"  ><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-images nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="images" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M160 32c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160zM396 138.7l96 144c4.9 7.4 5.4 16.8 1.2 24.6S480.9 320 472 320H328 280 200c-9.2 0-17.6-5.3-21.6-13.6s-2.9-18.2 2.9-25.4l64-80c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l17.3 21.6 56-84C360.5 132 368 128 376 128s15.5 4 20 10.7zM192 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V344c0 75.1 60.9 136 136 136H456c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z"></path></svg><!-- <span class="fa-solid fa-images nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Hoàn thành</span></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-9"  >
+                            <div class="tab-content"  >
+                                <div class="tab-pane active show" role="tabpanel" aria-labelledby="AcceptTicketTab" id="AcceptTicketTab">
+                                    <div class="card-body" style="font-size:13px;"  >
+                                        <div class="row">
+                                            <div class="col-4 d-flex justify-content-start gap-2  align-items-center"  >
+                                                <p class="text-body fw-semibold">Tài khoản:</p>
+                                                <p class="text-danger fw-semibold">@Model.Account</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2 align-items-center">
+                                                <p class="text-body fw-semibold">Chủ đề:</p>
+                                                <p class="fw-semibold">@Model.TicketCategory.CategoryName</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                <p class="text-body fw-semibold">Hình ảnh:</p>
+                                                <div class="avatar avatar-xl me-2" style="margin-top:-20px;">
+                                                    <a href="" target="_blank"><img class="rounded-circle " src="@Model.ImageURL" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                <p class="text-body fw-semibold">Nhân viên tiếp nhận:</p>
+                                                <p class="text-body-emphasis fw-semibold">@Model.TicketHistories.FirstOrDefault(x => x.TicketStatusValue == 1).UpdatedByUser</p>
+                                            </div>
+                                            <div class="col-5 d-flex justify-content-between">
+                                                <p class="text-body fw-semibold">Thời gian tiếp nhận:</p>
+                                                <p class="text-body-emphasis fw-semibold">@Model.TicketHistories.FirstOrDefault(x => x.TicketStatusValue == 1).UpdateTime</p>
+                                            </div>
+                                            <div class="col-12 pb-2">
+                                                <textarea disabled class="form-control w-100" rows="2" style="text-align: justify;">@Model.TicketContent</textarea>
+                                            </div>
+
+                                            
+                                        </div>
+                                        <hr class="mt-0"/>
+
+                                        @if (Model != null)
+                                        {
+                                            var ticketHistories = Model.TicketHistories.Where(x => x.TicketStatusValue == 2).ToList();
+                                            if (ticketHistories != null && ticketHistories.Count > 0)
+                                            {
+                                                foreach (var history in ticketHistories)
+                                                {
+                                                    <div class="row d-flex justify-content-start mb-1">
+                                                        <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                            <p class="text-body fw-semibold mb-0">Nhân viên xử lý:</p>
+                                                            <p class="text-body-emphasis fw-semibold mb-0">@history.UpdatedByUser</p>
+                                                        </div>
+                                                        <div class="col-8 d-flex justify-content-start gap-2   align-items-center">
+                                                            <p class="text-body fw-semibold mb-0">Thời gian xử lý:</p>
+                                                            <p class="text-body-emphasis fw-semibold mb-0">@history.UpdateTime</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p class="text-body fw-semibold m-0">Nội dung phản hồi:</p>
+                                                        </div>
+                                                        <div class="col-12 pb-2">
+                                                            <textarea disabled class="form-control w-100" rows="2" style="text-align: justify;">@history.TicketStatusDescription</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="mt-0" />
+                                                }
+                                                    
+                                            }
+                                        }
+                                            
+                                        <p class="text-body fw-semibold pb-0 mb-0">Kết quả kiểm tra:</p>
+                                        <textarea class="form-control" rows="4" id="CheckedResult"></textarea>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-2 border-0 d-flex justify-content-center gap-5">
+                    <button onclick="onUpdateTicketProcess('@Model.ID');" class="btn btn-primary">Cập nhật</button>
+                    <button onclick="onFinishTicketProcess('@Model.ID');" class="btn btn-danger">Hoàn thành</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card theme-wizard" data-theme-wizard="data-theme-wizard">
+                <div class="card-body pt-4 pb-0">
+                    <div class="row justify-content-between">
+                        <div class="col-3">
+                            <div class="scrollbar mb-4">
+                                <ul class="nav justify-content-between flex-nowrap nav-wizard nav-wizard-vertical-md" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link disabled active py-0 py-md-3" href="#bootstrap-vertical-wizard-tab1" data-bs-toggle="tab" data-wizard-step="1" aria-selected="true" role="tab">
+                                            <div class="text-center d-inline-block d-md-flex align-items-center gap-3">
+                                                <span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-file nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"></path></svg><!-- <span class="fa-solid fa-file nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span>
+                                                <span class="nav-item-title fs-9 fs-xl-8">Tiếp nhận</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    @{
+                                        int NumberOfTicketStatus = Model.TicketHistories.Count(x => x.TicketStatusValue == 2);
+                                        for (int i = 0; i < NumberOfTicketStatus; i++)
+                                        {
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link disabled active py-0 py-md-3" href="#bootstrap-vertical-wizard-tab2" data-bs-toggle="tab" data-wizard-step="2" aria-selected="false" tabindex="-1" role="tab">
+                                                    <div class="text-center d-inline-block d-md-flex align-items-center gap-3"><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-location-dot nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="location-dot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path></svg><!-- <span class="fa-solid fa-location-dot nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Xử lý</span></div>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active disabled py-0 py-md-3" href="#bootstrap-vertical-wizard-tab4" data-bs-toggle="tab" data-wizard-step="4" aria-selected="false" tabindex="-1" role="tab">
+                                            <div class="text-center d-inline-block d-md-flex align-items-center gap-3"><span class="nav-item-circle-parent"><span class="nav-item-circle"><svg class="svg-inline--fa fa-images nav-item-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="images" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M160 32c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160zM396 138.7l96 144c4.9 7.4 5.4 16.8 1.2 24.6S480.9 320 472 320H328 280 200c-9.2 0-17.6-5.3-21.6-13.6s-2.9-18.2 2.9-25.4l64-80c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l17.3 21.6 56-84C360.5 132 368 128 376 128s15.5 4 20 10.7zM192 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V344c0 75.1 60.9 136 136 136H456c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z"></path></svg><!-- <span class="fa-solid fa-images nav-item-icon"></span> Font Awesome fontawesome.com --><svg class="svg-inline--fa fa-check check-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg><!-- <span class="fa-solid fa-check check-icon"></span> Font Awesome fontawesome.com --></span></span><span class="nav-item-title fs-9 fs-xl-8">Hoàn thành</span></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <div class="tab-content">
+                                <div class="tab-pane active show" role="tabpanel" aria-labelledby="AcceptTicketTab" id="AcceptTicketTab">
+                                    <div class="card-body" style="font-size:13px;">
+                                        <div class="row">
+                                            <div class="col-4 d-flex justify-content-start gap-2  align-items-center">
+                                                <p class="text-body fw-semibold">Tài khoản:</p>
+                                                <p class="text-danger fw-semibold">@Model.Account</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2 align-items-center">
+                                                <p class="text-body fw-semibold">Chủ đề:</p>
+                                                <p class="fw-semibold">@Model.TicketCategory.CategoryName</p>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                <p class="text-body fw-semibold">Hình ảnh:</p>
+                                                <div class="avatar avatar-xl me-2" style="margin-top:-20px;">
+                                                    <a href="" target="_blank"><img class="rounded-circle " src="@Model.ImageURL" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                <p class="text-body fw-semibold">Nhân viên tiếp nhận:</p>
+                                                <p class="text-body-emphasis fw-semibold">@Model.TicketHistories.FirstOrDefault(x => x.TicketStatusValue == 1).UpdatedByUser</p>
+                                            </div>
+                                            <div class="col-5 d-flex justify-content-between">
+                                                <p class="text-body fw-semibold">Thời gian tiếp nhận:</p>
+                                                <p class="text-body-emphasis fw-semibold">@Model.TicketHistories.FirstOrDefault(x => x.TicketStatusValue == 1).UpdateTime</p>
+                                            </div>
+                                            <div class="col-12 pb-2">
+                                                <textarea disabled class="form-control w-100" rows="2" style="text-align: justify;">@Model.TicketContent</textarea>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-0" />
+
+                                        @if (Model != null)
+                                        {
+                                            var ticketHistories = Model.TicketHistories.Where(x => x.TicketStatusValue == 2).ToList();
+                                            if (ticketHistories != null && ticketHistories.Count > 0)
+                                            {
+                                                foreach (var history in ticketHistories)
+                                                {
+                                                    <div class="row d-flex justify-content-start mb-1">
+                                                        <div class="col-4 d-flex justify-content-start gap-2   align-items-center">
+                                                            <p class="text-body fw-semibold mb-0">Nhân viên xử lý:</p>
+                                                            <p class="text-body-emphasis fw-semibold mb-0">@history.UpdatedByUser</p>
+                                                        </div>
+                                                        <div class="col-8 d-flex justify-content-start gap-2   align-items-center">
+                                                            <p class="text-body fw-semibold mb-0">Thời gian xử lý:</p>
+                                                            <p class="text-body-emphasis fw-semibold mb-0">@history.UpdateTime</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p class="text-body fw-semibold m-0">Nội dung phản hồi:</p>
+                                                        </div>
+                                                        <div class="col-12 pb-2">
+                                                            <textarea disabled class="form-control w-100" rows="2" style="text-align: justify;">@history.TicketStatusDescription</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="mt-0" />
+                                                }
+
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-2 border-0 d-flex justify-content-center gap-5">
+                    <button onclick="onCloseTicketFunction();" class="btn btn-warning">Đóng</button>
+                </div>
+            </div>
+        }
+    }
+}

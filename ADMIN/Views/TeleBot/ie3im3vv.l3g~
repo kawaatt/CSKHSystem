@@ -1,0 +1,207 @@
+﻿<div class="content">
+    <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis pt-7 border-y">
+        <div class="row align-items-center justify-content-end g-3">
+            <div class="col-12 col-md-auto d-flex">
+                <button class="btn btn-phoenix-info  me-2" onclick="AddNewTeleBot();">
+                    <span class="fa-plus"><svg class="svg-inline--fa fa-plus me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg></span>
+                    <span>Add New</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive scrollbar">
+            <table id="botShareTeleTableData" class="table fs-9 mb-0 border-top border-translucent">
+                <thead>
+                    <tr>
+                        <th>Thời gian tạo</th>
+                        <th>Tài khoản</th>
+                        <th>Token</th>
+                        <th>Nhắn tin riêng</th>
+                        <th>ChatID</th>
+                        <th>Trạng thái</th>
+                        <th>URL Hooking</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@* <div class="modal fade" id="AddNewBotShareTeleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="ProcessingTicketArea" class="card theme-wizard" data-theme-wizard="data-theme-wizard" bis_skin_checked="1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+Code
+CopyInsert
+<div class="modal fade" id="AddNewBotShareTeleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form>
+                    <div class="col-sm-6 col-md-8" bis_skin_checked="1">
+                        <div class="form-floating" bis_skin_checked="1"><input class="form-control" id="floatingInputGrid" type="text" placeholder="Project title"><label for="floatingInputGrid">Project title</label></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userName" class="col-sm-2 col-form-label">User Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userName" placeholder="Enter User Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="token" class="col-sm-2 col-form-label">Token</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="token" placeholder="Enter Token">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="isIndividualWorking" class="col-sm-2 col-form-label">Is Individual Working</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" class="form-control" id="isIndividualWorking">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="chatID" class="col-sm-2 col-form-label">Chat ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="chatID" placeholder="Enter Chat ID">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="system" class="col-sm-2 col-form-label">System</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="system" placeholder="Enter System">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="urlHooking" class="col-sm-2 col-form-label">URL Hooking</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="urlHooking" placeholder="Enter URL Hooking">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" class="form-control" id="status">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createBtn">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                $('#botShareTeleTableData').DataTable({
+                    lengthMenu: [50, 100, 200],
+                    pageLength: 50,
+                    order: [0, 'asc'],
+                    serverSide: true,
+                    processing: true,
+                    filter: true,
+                    stateSave: true,
+                    sScrollX: "100%",
+                    bJQueryUI: true,
+                    ajax: {
+                        url: '/BotShareTele/GetBotShareTeleTableData',
+                        type: 'POST',
+                        data: function (d) {
+                            d.SystemApp = searchParams.toString();
+                            d.Status = 1;
+                        }
+                    },
+                    columns: [
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        // {
+                        //     className: 'text-center align-middle',
+                        //     data: "requestDate",
+                        //     name: "requestDate",
+                        //     render: function (data) {
+                        //         var requestDate = moment(data).format("HH:mm:ss DD-MM-YYYY");
+                        //         var htmlColumn = `<div>${requestDate}</div>`;
+                        //         return htmlColumn;
+                        //     }
+                        // },
+                        // { className: 'text-center align-middle', data: 'account', name: "account" },
+                        // {
+                        //     className: 'text-center align-middle',
+                        //     data: "ticketCode",
+                        //     name: "ticketCode"
+                        // },
+                        // {
+                        //     className: 'text-center align-middle',
+                        //     name: "ticketContent",
+                        //     data: "ticketContent",
+                        //     render: function (data) {
+                        //         if(data!=null){
+                        //             return `${data}`;
+                        //         }else
+                        //         {
+                        //             return ``;
+                        //         }
+                        //     }
+                        // },
+                        // {
+                        //     data: data => data,
+                        //     render: function (data) {
+                        //         var htmlColumn = "";
+                        //         if(data.ticketHistories.length==0)
+                        //         {
+                        //             htmlColumn = `<button onclick="onCheckTicket('${data.id}')"  class="btn btn-sm btn-outline-info me-1 mb-1" type="button">New</button>`;
+                        //         }else
+                        //         {
+                        //             if(data.ticketHistories.some(x=>x.ticketStatusValue === 2)){
+                        //                 htmlColumn = `<button onclick="onCheckTicket('${data.id}')" class="btn btn-sm btn-subtle-success me-1 mb-1" type="button">Done</button>`;
+                        //             }else{
+                        //                 htmlColumn = `<button onclick="onCheckTicket('${data.id}')" class="btn btn-sm btn-outline-danger me-1 mb-1" type="button">Processing</button>`;
+                        //             }
+                        //         }
+                        //         return htmlColumn;
+                        //     }
+                        // }
+                    ],
+                    "fnDrawCallback": function(oSettings) {
+                        // $('.GetTicketStatus').removeClass('active');
+                        // $('.GetTicketStatus[data-status="' + localStorage.getItem("ticketstatus") + '"]').addClass('active');
+                    }
+                });
+            }
+
+            // var connection = new signalR.HubConnectionBuilder().withUrl("https://cskh-auto-api.attcloud.org/hubs/updateState").withAutomaticReconnect().build();
+
+            // connection.on("UpdateTicketHistory", (inCommingMessasge) => {
+            //     console.log("UpdateDataTable");
+            //     $('#ticketTableData').DataTable().ajax.reload();
+            // });
+
+            // connection.start()
+            //     .then(() => {
+            //         console.log("SignalR connection started successfully.");
+            //     })
+            //     .catch((err) => {
+            //         console.error("Error starting SignalR connection: " + err);
+            //     });
+        });
+
+        function AddNewTeleBot() {
+            $('#AddNewBotShareTeleModal').modal('show');
+        }
+    </script>
+}

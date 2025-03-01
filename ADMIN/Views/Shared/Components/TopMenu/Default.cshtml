@@ -1,0 +1,42 @@
+﻿@using ADMIN.Models.DTO
+@model UserDTO;
+@{
+    //Console.WriteLine(JsonConvert.SerializeObject(Model,Formatting.Indented));
+}
+<div class="collapse navbar-collapse justify-content-between">
+    <div class="navbar-logo">
+        <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+        <a class="navbar-brand navbar-brand" href="../index.html">ATT<span class="text-body-highlight d-none d-sm-inline"> CSKH System</span></a>
+    </div>
+    <ul class="navbar-nav navbar-nav-icons flex-row">
+        <li class="nav-item dropdown">
+            <a class="nav-link lh-1 pe-0 white-space-nowrap" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" aria-haspopup="true" data-bs-auto-close="outside" aria-expanded="false">@Model.UserName <span class="d-inline-block" style="height:10.2px;width:10.2px;"><span class="fa-solid fa-chevron-down fs-10"></span></span></a>
+            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
+                <div class="card position-relative border-0">
+                    <div class="card-body p-0">
+                        <div class="text-center pt-4 pb-3">
+                            <div class="avatar avatar-xl ">
+                                <img class="rounded-circle " src="./assets/img/team/avatar-placeholder.webp" alt="" />
+                            </div>
+                            <h6 class="mt-2 text-body-emphasis">@Model.UserInfor.UserName - @Model.Role</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0 border-top border-translucent">
+                        <ul class="nav d-flex flex-column my-3">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout","Auth")" class="btn btn-phoenix-secondary d-flex flex-center w-100">
+                                    <span class="me-2" data-feather="log-out"> </span>Sign out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+@section Scripts {
+    <!--Config Sidebar and TopNav-->
+    
+}

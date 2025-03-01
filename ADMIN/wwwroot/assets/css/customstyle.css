@@ -1,0 +1,40 @@
+﻿.content
+{
+    padding:0px;
+}
+
+.table-responsive label {
+    font-size: 14px;
+    margin: 0px 10px;
+}
+
+.table-responsive select {
+    padding: 2px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.table-responsive .dt-search {
+    font-size: 12px;
+}
+
+.table-responsive .dt-paging .dt-paging-button {
+    font-size: 12px;
+    border-radius: 10px;
+}
+
+.table-responsive .dt-info {
+    font-size: 12px;
+}
+
+.feather {
+    width: 15px; /* Adjust width */
+    height: 15px; /* Adjust height */
+    stroke-width: 2; /* Adjust line thickness */
+}
+
+.info{
+    width:100%;
+    font-size:13px;
+    padding-bottom:8px;
+}

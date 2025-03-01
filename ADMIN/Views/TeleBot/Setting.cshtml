@@ -1,0 +1,387 @@
+﻿@{
+    TelegramAccountDTO TelegramAccount = (TelegramAccountDTO)ViewBag.TeleBot;
+    Console.WriteLine(JsonConvert.SerializeObject(TelegramAccount));
+}
+<div class="content mt-8 row">
+    <div class="col-12 col-md-4">
+        <div class="card">
+            <div class="card-body p-5">
+                <form method="post" id="SubmitTelegramAccountForm" class="row">    
+                    @if (@TelegramAccount.BotType==0)
+                    {
+                        <h5>BOT SHARE TELE</h5>
+                    }
+                    @if (@TelegramAccount.BotType == 99)
+                    {
+                        <h5>BOT CHECK HẬU ĐÀI</h5>
+                    }
+                    @if (@TelegramAccount.BotType == 1)
+                    {
+                        <h5>BOT OCR</h5>
+                    }
+                    <input id="BotType" name="BotType" type="hidden" value="@TelegramAccount.BotType">
+                    <div class="info">
+                        <strong>ID: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <input class="form-control" type="text" id="ID" name="ID" value="@TelegramAccount.ID">
+                        </div>
+                    </div>
+                    <div class="info">
+                        <strong>User Name: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <input class="form-control" type="text" id="UserName" name="UserName" value="@TelegramAccount.UserName">
+                        </div>
+                    </div>
+                    <div class="info"><strong>Token: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <input class="form-control" type="text" id="Token" name="Token" value="@TelegramAccount.Token">
+                        </div>
+                    </div>
+                    @if (@TelegramAccount.BotType != 2)
+                    {
+                        <div class="info">
+                            <div class="form-switch p-0">
+                                <strong>Tin nhắn cá nhân: </strong>
+                                @if (TelegramAccount.IsIndividualWorking == true)
+                                {
+                                    <input class="form-control form-check-input ms-2" id="IsIndividualWorking" name="IsIndividualWorking" type="checkbox" checked>
+                                }
+                                else
+                                {
+                                    <input class="form-control form-check-input ms-2" id="IsIndividualWorking" name="IsIndividualWorking" type="checkbox">
+                                }
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Chat ID: </strong>
+                            <div class="d-flex justify-content-center gap-2">
+                                <input class="form-control" type="text" id="ChatID" name="ChatID" value="@TelegramAccount.ChatID">
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>URL Hooking: <span class="bg-success">@ViewBag.HookingLink</span></strong>
+                            <div class="d-flex justify-content-center gap-2">
+                                <input class="form-control" type="text" id="URLHooking" name="URLHooking" value="@TelegramAccount.URLHooking">
+                                <button type="button" id="URLHookingButton" class="btn btn-sm btn-info rounded-3">Hook</button>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Keyboard Data: </strong>
+                            <div class="d-flex justify-content-center gap-2">
+                                <textarea rows="3" class="form-control" type="text" id="KeyboardData" name="KeyboardData">@TelegramAccount.KeyboardData</textarea>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="d-flex justify-content-center ">
+                                <button type="button" id="SubmitTelegramAccountSettingButton" class="btn btn-sm btn-warning rounded-3">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="row align-items-center justify-content-start g-3 pb-1">
+                    <div class="col-12 col-md-auto d-flex">
+                        <button class="btn btn-phoenix-info btn-sm  me-2" id="AddNewTelegramResponseButton">
+                            <span class="fa-plus"><svg class="svg-inline--fa fa-plus me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg></span>
+                            <span>Add New</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive scrollbar">
+                    <table id="teleResponseTable" class="table fs-9 mb-0 border-top border-translucent">
+                        <thead>
+                            <tr>
+                                <th>Request Code</th>
+                                <th>Image URL</th>
+                                <th>Content</th>
+                                <th>Keyboard</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SubmitTelegramResponseModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form method="post" id="SubmitTelegramResponseForm">
+                    <input hidden type="text" id="TelegramResponse_ID" name="TelegramResponse_ID" />
+                    <input hidden type="text" id="TelegramResponse_BotID" name="TelegramResponse_BotID" />
+                    <div class="form-group d-flex justify-content-center align-item-center mb-2">
+                        <div class="col-12" bis_skin_checked="1">
+                            <div class="form-floating mb-2" bis_skin_checked="1">
+                                <input class="form-control" id="TelegramResponse_RequestCode" name="TelegramResponse_RequestCode" type="text" placeholder="Request Code">
+                                <label for="floatingInputGrid">Request Code</label>
+                            </div>
+                            <div class="form-floating  mb-2" bis_skin_checked="1">
+                                <input class="form-control" id="TelegramResponse_ImageURL" name="TelegramResponse_ImageURL" type="text" placeholder="Image URL">
+                                <label for="floatingInputGrid">Image URL</label>
+                            </div>
+                            <div class="form-floating  mb-2" bis_skin_checked="1">
+                                <textarea style="height:100px;" class="form-control" id="TelegramResponse_Content" name="TelegramResponse_Content" type="text" placeholder="Content"></textarea>
+                                <label for="floatingInputGrid">Content</label>
+                            </div>
+                            <div class="form-floating  mb-2" bis_skin_checked="1">
+                                <textarea style="height:100px;" class="form-control" id="TelegramResponse_InlineKeyboard" name="TelegramResponse_InlineKeyboard" type="text" placeholder="Inline Keyboard"></textarea>
+                                <label for="floatingInputGrid">Inline Keyboard</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-around">
+                <button type="button" class="btn btn-primary" id="SubmitTelegramResponseButton">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#teleResponseTable').DataTable({
+                lengthMenu: [50, 100, 200],
+                pageLength: 50,
+                order: [0, 'asc'],
+                serverSide: true,
+                processing: true,
+                filter: true,
+                stateSave: true,
+                sScrollX: "100%",
+                bJQueryUI: true,
+                columnDefs: [
+                    { width: '10%', targets: 0 },
+                    { width: '5%', targets: 1 },
+                    { width: '55%', targets: 2 },
+                    { width: '10%', targets: 3 },
+                    { width: '20%', targets: 4 }
+
+                ],
+                ajax: {
+                    url: '/TeleBot/GetTelegramResponseTableData',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: function (d) {
+                        d.BotID = $('#ID').val();
+                    }
+                },
+                columns: [
+                    {
+                        className: 'text-center align-middle',
+                        data: "requestCode",
+                        name: "requestCode",
+                    },
+                    {
+                        className: 'text-center align-middle',
+                        data: "urlImage",
+                        name: "urlImage",
+                        render: function (data) {
+                            var htmlColumn = `<div></div>`;
+                            if(data!=='')
+                                var htmlColumn = `<div><a href='${data}' target='_blank'>Ảnh</a></div>`;
+                            return htmlColumn;
+                        }
+                    },
+                    {
+                        className: 'text-center align-middle',
+                        data: "content",
+                        name: "content"
+                    },
+                    {
+                        className: 'text-center align-middle',
+                        data: "inlineKeyboard",
+                        name: "inlineKeyboard"
+                    },
+                    {
+                        className: 'text-center align-middle',
+                        data: data => data,
+                        render: function (data) {
+                            var htmlColumn = `<div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                                <button onclick="onUpdateBotResponseInfo('${data.id}')" class="btn btn-info" type="button">
+                                                    <i class="feather" data-feather="edit"></i>
+                                                </button>
+                                                <button class="btn btn-danger" type="button">
+                                                    <i class="feather" data-feather="trash-2"></i>
+                                                </button>
+                                            </div>`;
+                            return htmlColumn;
+                        }
+                        
+                    }
+                ],
+                "fnDrawCallback": function(oSettings) {
+                    feather.replace();
+                }
+            });
+        });
+
+        $('#SubmitTelegramAccountSettingButton').click(function() {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                var form = $('#SubmitTelegramAccountForm');
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/SubmitTeleBotAccountSetting?SystemApp='+searchParams,
+                    data: form.serialize(),
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+                        toastr.error("Lỗi cập nhật");
+                    }
+                });
+            }
+        });
+
+        $('#URLHookingButton').click(function(){
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                var dataToSend = {
+                    BotID: $('#ID').val(),
+                    System: searchParams.toString()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/SetTelegramHookURL',
+                    data: dataToSend,
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                        if(data.isSuccess===true) {
+                            toastr.success('Thành công');
+                        }else
+                        {
+                            toastr.error('Lỗi');
+                        }
+                    },
+                    error: function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                });
+            }
+        });
+
+        $('#AddNewTelegramResponseButton').click(function(){
+            $('#TelegramResponse_BotID').val($('#ID').val());
+            $('#SubmitTelegramResponseModal').modal('show');
+        });
+
+        $('#SubmitTelegramResponseButton').click(function(){
+            var form = $('#SubmitTelegramResponseForm');
+            $.ajax({
+                type: 'POST',
+                url: '/TeleBot/SubmitTelegramResponseFunction',
+                data: form.serialize(),
+                success: function (result) {
+                    alert(JSON.stringify(result));
+                    location.reload();
+                },
+                error: function (error) {
+                    toastr.error("Lỗi cập nhật");
+                }
+            });
+        });
+
+
+        $('#SubmitTelegramAccountSettingButton').click(function() {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                var form = $('#SubmitTelegramAccountForm');
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/SubmitTeleBotAccountSetting?SystemApp='+searchParams,
+                    data: form.serialize(),
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+                        toastr.error("Lỗi cập nhật");
+                    }
+                });
+            }
+        });
+
+        
+
+        $('#URLHookingButton').click(function(){
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                var dataToSend = {
+                    BotID: $('#ID').val(),
+                    System: searchParams.toString()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/SetTelegramHookURL',
+                    data: dataToSend,
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(JSON.stringify(data));
+                        if(data.isSuccess===true) {
+                            toastr.success('Thành công');
+                        }else
+                        {
+                            toastr.error('Lỗi');
+                        }
+                    },
+                    error: function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                });
+            }
+        });
+
+        $('#AddNewTelegramResponseButton').click(function(){
+            $('#TelegramResponse_BotID').val($('#ID').val());
+            $('#SubmitTelegramResponseModal').modal('show');
+        });
+
+        
+        function onUpdateBotResponseInfo(TeleResposeID)
+        {
+            $('#SubmitTelegramResponseForm').find('input:text').val('');
+            var dataToSend = {
+                ID: TeleResposeID
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/TeleBot/GetTeleResponseByID',
+                data: dataToSend,
+                dataType: 'json',
+                success: function (data) {
+                    if(data.isSuccess===true) {
+                        data = data.result;
+                        $('#TelegramResponse_ID').val(data.id);
+                        $('#TelegramResponse_BotID').val(data.botID);
+                        $('#TelegramResponse_RequestCode').val(data.requestCode);
+                        $('#TelegramResponse_ImageURL').val(data.urlImage);
+                        $('#TelegramResponse_Content').val(data.content);
+                        $('#TelegramResponse_InlineKeyboard').val(data.inlineKeyboard);
+                        $('#SubmitTelegramResponseModal').modal('show');
+                    }else
+                    {
+                        toastr.error('Lỗi');
+                    }
+                },
+                error: function (error) {
+                    alert(JSON.stringify(error));
+                }
+            });
+        }
+
+    </script>
+}

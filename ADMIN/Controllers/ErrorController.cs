@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace ADMIN.Controllers
+{
+    public class ErrorController : Controller
+    {
+        public IActionResult Unauthorized()
+        {
+            return View(); // Tương ứng với View: Views/Error/Unauthorized.cshtml
+        }
+
+        public IActionResult NotFound()
+        {
+            return View(); // Tương ứng với View: Views/Error/NotFound.cshtml
+        }
+
+        public IActionResult InternalServerError()
+        {
+            return View(); // Tương ứng với View: Views/Error/InternalServerError.cshtml
+        }
+    }
+}

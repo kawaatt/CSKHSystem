@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MenuItem>
+@{
+    string ControllerName = ViewContext.RouteData.Values["Controller"]?.ToString();
+    string ActionName = ViewContext.RouteData.Values["Action"]?.ToString();
+}
+<div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+    <!-- scrollbar removed-->
+    <div class="navbar-vertical-content">
+        <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+            <li class="nav-item">
+                <p class="navbar-vertical-label">SELECT SYSTEM</p>
+                <hr class="navbar-vertical-line" /><!-- parent pages-->
+                <!-- parent pages-->
+                <div class="nav-item-wrapper px-3">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="BaseProjectSelect">
+                        @foreach (var item in ViewBag.ProjectList)
+                        {
+                            if (item == ViewBag.SiteActive.ToString())
+                            {
+                                <option value="@item" selected>@item</option>
+                            }
+                            else
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </li>
+
+            @{
+                List<MenuItem> ticketMenuList = Model.Where(x => x.Controller == "Ticket").ToList();
+                if (ticketMenuList.Count > 0)
+                {
+                    <li class="nav-item">
+                        <p class="navbar-vertical-label">CSKH FEATURE</p>
+                        <hr class="navbar-vertical-line" />
+                        <div class="nav-item-wrapper">
+                            @foreach (var ticketMenuItem in ticketMenuList)
+                            {
+                                <a class="nav-link dropdown-indicator label-1 @(ControllerName == ticketMenuItem.Controller && ActionName == ticketMenuItem.Action ? " active" :"")"
+                                   asp-controller="@ticketMenuItem.Controller" asp-action="@ticketMenuItem.Action" asp-route-SystemApp="@ticketMenuItem.ProjectCode" role="button">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span>
+                                        <span class="nav-link-text">@ticketMenuItem.Name</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </li>
+                }
+
+                List<MenuItem> BotShareTeleMenuList = Model.Where(x => x.Controller == "TeleBot").ToList();
+                if (BotShareTeleMenuList.Count > 0)
+                {
+                    <li class="nav-item">
+                        <p class="navbar-vertical-label">TELEGRAM BOT</p>
+                        <hr class="navbar-vertical-line" />
+                        <div class="nav-item-wrapper">
+                            @foreach (var BotShareTeleMenuItem in BotShareTeleMenuList)
+                            {
+                                <a class="nav-link dropdown-indicator label-1 @(ControllerName == BotShareTeleMenuItem.Controller && ActionName == BotShareTeleMenuItem.Action ? " active" :"")"
+                                   asp-controller="@BotShareTeleMenuItem.Controller" asp-action="@BotShareTeleMenuItem.Action" asp-route-SystemApp="@BotShareTeleMenuItem.ProjectCode" role="button">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span>
+                                        <span class="nav-link-text">@BotShareTeleMenuItem.Name</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </li>
+                }
+            }
+
+
+        </ul>
+    </div>
+</div>
+<div class="navbar-vertical-footer">
+    <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center">
+        <span class="uil uil-left-arrow-to-left fs-8"></span>
+        <span class="uil uil-arrow-from-right fs-8"></span>
+        <span class="navbar-vertical-footer-text ms-2">Collapsed View</span>
+    </button>
+</div>
+
+
+@section Scripts {
+
+}

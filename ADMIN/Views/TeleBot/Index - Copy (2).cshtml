@@ -1,0 +1,245 @@
+﻿<div class="content">
+    <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis pt-7 border-y">
+        <div class="row align-items-center justify-content-start g-3">
+            <div class="col-12 col-md-auto d-flex">
+                <button class="btn btn-phoenix-info  me-2" id="AddNewTelegramAccountButton">
+                    <span class="fa-plus"><svg class="svg-inline--fa fa-plus me-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg></span>
+                    <span>Add New</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive scrollbar">
+            <table id="botShareTeleTableData" class="table fs-9 mb-0 border-top border-translucent">
+                <thead>
+                    <tr>
+                        <th>Thời gian tạo</th>
+                        <th>Bot ID</th>
+                        <th>Loại bot</th>
+                        <th>Token</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SubmitTelegramAccountModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form method="post" id="SubmitTelegramAccountForm">
+                    <input type="" id="botId" name="botId" value="" />
+                    <div class="form-floating form-floating-advance-select mb-2">
+                        <label for="floaTingLabelSingleSelect">Bot Type</label>
+                        <select class="form-select form-group d-flex justify-content-center align-item-center mb-2" id="botType" name="botType">
+                            <option value="0">Bot Share Tele</option>
+                            <option value="1">Bot OCR</option>
+                        </select>
+                    </div>
+                    <div class="form-group d-flex justify-content-center align-item-center mb-2">
+                        <div class="col-12" bis_skin_checked="1">
+                            <div class="form-floating" bis_skin_checked="1">
+                                <input class="form-control" id="botUserName" name="botUserName" type="text" placeholder="Bot Username" value="@@botcheckgroupf8betbot">
+                                <label for="floatingInputGrid">Bot Username</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-center align-item-center mb-2">
+                        <div class="col-12" bis_skin_checked="1">
+                            <div class="form-floating" bis_skin_checked="1">
+                                <input class="form-control" id="botToken" name="botToken" type="text" placeholder="Bot Token" value="7582060841:AAGYjU1LwOcgZFXjl5khoB3oLOq_Dm86DsI">
+                                <label for="floatingInputGrid">Bot Token</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-around">
+                <button type="button" class="btn btn-primary" id="SubmitTelegramAccountFunction">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                $('#botShareTeleTableData').DataTable({
+                    lengthMenu: [50, 100, 200],
+                    pageLength: 50,
+                    order: [0, 'asc'],
+                    serverSide: true,
+                    processing: true,
+                    filter: true,
+                    stateSave: true,
+                    sScrollX: "100%",
+                    bJQueryUI: true,
+                    ajax: {
+                        url: '/TeleBot/GetBotShareTeleTableData',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: function (d) {
+                            d.SystemApp = searchParams.toString();
+                            d.Status = 1;
+                        }
+                    },
+                    columns: [
+                        { 
+                            className: 'text-center align-middle',
+                            data: "createDate",
+                            name: "createDate",
+                            render: function (data) {
+                                var requestDate = moment(data).format("HH:mm:ss DD-MM-YYYY");
+                                var htmlColumn = `<div>${requestDate}</div>`;
+                                return htmlColumn;
+                            }
+                        },
+                        {
+                            className: 'text-center align-middle',
+                            data: "userName",
+                            name: "userName",
+                        },
+                        {
+                            className: 'text-center align-middle',
+                            data: "botType",
+                            name: "botType",
+                            render: function (data) {
+                                var htmlColumn;
+                                switch(data) {
+                                    case 0:
+                                        htmlColumn = `<span class="badge text-bg-primary">Bot Share Tele</span>`;
+                                        break;
+                                    case 1:
+                                        htmlColumn = `<span class="badge text-bg-success">Bot OCR</span>`;
+                                        break;
+                                    default:
+                                        htmlColumn = `<span class="badge text-bg-secondary">Bot lạ</span>`;
+                                        break;
+                                }
+                                return htmlColumn;
+                            }
+                        },
+                        {
+                            className: 'text-center align-middle',
+                            data: "token",
+                            name: "token"   
+                        },
+                        {
+                            className: 'd-flex justify-content-center align-items-center',
+                            data: data => data,
+                            render: function (data) {
+                                var htmlColumn = `<div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                                    <button onclick="onUpdateBotAccountInfo('${data.id}')" class="btn btn-info" type="button">
+                                                        <i class="feather" data-feather="edit"></i>
+                                                    </button>
+                                                    <button onclick="onSettingTelegramBot('${data.id}')" class="btn btn-dark" type="button">
+                                                        <i class="feather" data-feather="settings"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger" type="button">
+                                                        <i class="feather" data-feather="trash-2"></i>
+                                                    </button>
+                                                </div>`;
+                                return htmlColumn;
+                            }
+                        }
+                    ],
+                    "fnDrawCallback": function(oSettings) {
+                        feather.replace();
+                        // $('.GetTicketStatus').removeClass('active');
+                        // $('.GetTicketStatus[data-status="' + localStorage.getItem("ticketstatus") + '"]').addClass('active');
+                    }
+                });
+            }
+
+            // var connection = new signalR.HubConnectionBuilder().withUrl("https://cskh-auto-api.attcloud.org/hubs/updateState").withAutomaticReconnect().build();
+
+            // connection.on("UpdateTicketHistory", (inCommingMessasge) => {
+            //     console.log("UpdateDataTable");
+            //     $('#ticketTableData').DataTable().ajax.reload();
+            // });
+
+            // connection.start()
+            //     .then(() => {
+            //         console.log("SignalR connection started successfully.");
+            //     })
+            //     .catch((err) => {
+            //         console.error("Error starting SignalR connection: " + err);
+            //     });
+        });
+
+
+        $('#AddNewTelegramAccountButton').click(function() {
+            $('#botId').val('');
+            $('#SubmitTelegramAccountModal').modal('show');
+        });
+
+        $('#SubmitTelegramAccountFunction').click(function() {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                var form = $('#SubmitTelegramAccountForm');
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/SubmitTeleBotAccount?SystemApp='+searchParams,
+                    data: form.serialize(),
+                    success: function (result) {
+                        $('#SubmitTelegramAccountModal').modal('hide').fadeOut();
+                        location.reload();
+                    },
+                    error: function (error) {
+                        $('#SubmitTelegramAccountModal').modal('hide').fadeOut();
+                        toastr.error("Lỗi cập nhật");
+                    }
+                });
+            }
+        });
+
+        function onUpdateBotAccountInfo(TelegramID)
+        {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                $('#botUserName').val('');
+                $('#botToken').val('');
+                $('#botId').val('');
+                var dataToSend = {
+                    BotID: TelegramID,
+                    System: searchParams.toString()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/TeleBot/GetBotTeleByIDAsync',
+                    data: dataToSend,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                        if(data.isSuccess===true) {
+                            $('#botType').val(data.result.botType);
+                            $('#botUserName').val(data.result.userName);
+                            $('#botToken').val(data.result.token);
+                            $('#botId').val(data.result.id);
+
+                            document.getElementById("botUserName").value = data.result.userName;
+                            document.getElementById("botToken").value = data.result.token;
+                            $('#SubmitTelegramAccountModal').modal('show').fadeIn();
+                        }
+                    },
+                    error: function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                });
+            }
+        }
+
+        function onSettingTelegramBot(TelegramID)
+        {
+            let searchParams = new URLSearchParams(window.location.search).get('SystemApp');
+            if(searchParams !== null) {
+                window.open(`/TeleBot/Setting?SystemApp=${searchParams}&ID=${TelegramID}`, "_blank");
+            }
+        }
+
+    </script>
+}
