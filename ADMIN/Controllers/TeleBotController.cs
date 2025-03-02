@@ -68,6 +68,15 @@ namespace ADMIN.Controllers
                 ViewBag.HookingLink = $"{_apiEndPointConstant.API_BOT_SHARE_TELE_ENDPOINT}/api/Telegram/BotShareTele/{_telegramAccountResultDTO.System}/{_telegramAccountResultDTO.ID}";
             }
 
+            var _telegramCampaignRes = await _telebotServices.GetTeleCampaignByBotIDAsync(_telegramAccountResultDTO.ID);
+            if (_telegramCampaignRes != null && _telegramCampaignRes.IsSuccess == true)
+            {
+                ViewBag.TeleCampaign = JsonConvert.DeserializeObject<TelegramCampaignDTO>(_telegramCampaignRes.Result.ToString());
+            }else
+            {
+                ViewBag.TeleCampaign = null;
+            }
+
             return View();
         }
 
@@ -397,6 +406,70 @@ namespace ADMIN.Controllers
                 {
                     _res.Result = JsonConvert.DeserializeObject<TelegramResponseDTO>(_getTelegramResposeByIDRes.Result.ToString());
                 }
+            }
+            catch (Exception ex)
+            {
+                _res.IsSuccess = false;
+                _res.Message = "System error - " + ex.Message;
+            }
+            return Json(_res);
+        }
+
+        [HttpPost]
+        [Route("/TeleBot/SubmitTelegramCampaignForm")]
+        public async Task<IActionResult> SubmitTelegramCampaignForm()
+        {
+            try
+            {
+                Console.WriteLine("SubmitTelegramCampaignForm");
+                var form = HttpContext.Request.Form;
+                Console.WriteLine(JsonConvert.SerializeObject(form, Formatting.Indented));
+                string BotCampaignID = form["BotCampaignID"];
+                string Content = form["BotCampaignContent"];
+                string URLImage = form["BotCampaignImageURL"];
+                string InlineKeyboard = form["BotCampaignInlineKeyboard"];
+
+                if (string.IsNullOrWhiteSpace(Content) || string.IsNullOrWhiteSpace(BotCampaignID))
+                {
+                    _res.IsSuccess = false;
+                    _res.Message = "Invalid request. No data received.";
+                    return Json(_res);
+                }
+
+                TelegramCampaignDTO _telegramCampaign = new TelegramCampaignDTO
+                {
+                    
+                }
+
+                //TelegramResponseDTO responseDTO = new TelegramResponseDTO
+                //{
+                //    BotID = Guid.Parse(botID),
+                //    RequestCode = requestCode,
+                //    Content = content,
+                //    URLImage = imageURL,
+                //    InlineKeyboard = inlineKeyboard
+                //};
+                //Console.WriteLine(JsonConvert.SerializeObject(responseDTO, Formatting.Indented));
+
+                //ResponseDTO _submitTelegramResponseRes = new ResponseDTO();
+
+                //if (ID.IsNullOrEmpty())
+                //{
+                //    Console.WriteLine("Here");
+                //    _submitTelegramResponseRes = await _telebotServices.AddNewTelegramResponse(responseDTO);
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Here1");
+                //    responseDTO.ID = Guid.Parse(ID);
+                //    _submitTelegramResponseRes = await _telebotServices.UpdateTelegramResponse(responseDTO);
+                //}
+
+                //if (_submitTelegramResponseRes == null || !_submitTelegramResponseRes.IsSuccess)
+                //{
+                //    _res.IsSuccess = false;
+                //    _res.Message = _submitTelegramResponseRes.Message;
+                //}
             }
             catch (Exception ex)
             {

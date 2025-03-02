@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TELEBOT_CSKH.Data;
 
@@ -11,9 +12,11 @@ using TELEBOT_CSKH.Data;
 namespace TELEBOT_CSKH.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250301121011_updatedb6")]
+    partial class updatedb6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,12 +89,6 @@ namespace TELEBOT_CSKH.Migrations
 
                     b.Property<string>("InlineKeyboard")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalAccountFinish")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalAccountPending")
-                        .HasColumnType("int");
 
                     b.Property<bool>("iRun")
                         .HasColumnType("bit");

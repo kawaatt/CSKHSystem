@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TELEBOT_CSKH.Data;
 
@@ -11,9 +12,11 @@ using TELEBOT_CSKH.Data;
 namespace TELEBOT_CSKH.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250301120935_updatedb5")]
+    partial class updatedb5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,38 +70,6 @@ namespace TELEBOT_CSKH.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("TelegramAccount");
-                });
-
-            modelBuilder.Entity("TELEBOT_CSKH.Models.TELEGRAM_BOT.TelegramCampaign", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IDBot")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InlineKeyboard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalAccountFinish")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalAccountPending")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("iRun")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TelegramCampaign");
                 });
 
             modelBuilder.Entity("TELEBOT_CSKH.Models.TELEGRAM_BOT.TelegramCustomer", b =>

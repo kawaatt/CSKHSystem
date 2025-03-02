@@ -17,6 +17,7 @@ namespace TELEBOT_CSKH.Data
         public DbSet<TelegramCustomer> TelegramCustomers { get; set; }
 
         public DbSet<TelegramResponse> TelegramResponse { get; set; }
+        public DbSet<TelegramCampaign> TelegramCampaign { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

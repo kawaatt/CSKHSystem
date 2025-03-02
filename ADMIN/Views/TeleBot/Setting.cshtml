@@ -1,23 +1,24 @@
 ﻿@{
     TelegramAccountDTO TelegramAccount = (TelegramAccountDTO)ViewBag.TeleBot;
-    Console.WriteLine(JsonConvert.SerializeObject(TelegramAccount));
+    TelegramCampaignDTO? TeleCampaign = ViewBag.TeleCampaign as TelegramCampaignDTO;
+    
 }
 <div class="content mt-8 row">
     <div class="col-12 col-md-4">
-        <div class="card">
+        <div class="card col-12">
             <div class="card-body p-5">
                 <form method="post" id="SubmitTelegramAccountForm" class="row">    
                     @if (@TelegramAccount.BotType==0)
                     {
-                        <h5>BOT SHARE TELE</h5>
+                        <h5 class="text-center pb-1">BOT SHARE TELE</h5>
                     }
                     @if (@TelegramAccount.BotType == 99)
                     {
-                        <h5>BOT CHECK HẬU ĐÀI</h5>
+                        <h5 class="text-center pb-1">BOT CHECK HẬU ĐÀI</h5>
                     }
                     @if (@TelegramAccount.BotType == 1)
                     {
-                        <h5>BOT OCR</h5>
+                        <h5 class="text-center pb-1">BOT OCR</h5>
                     }
                     <input id="BotType" name="BotType" type="hidden" value="@TelegramAccount.BotType">
                     <div class="info">
@@ -78,6 +79,74 @@
                             </div>
                         </div>
                     }
+                </form>
+            </div>
+        </div>
+        <div class="card col mt-3 mb-5">
+            <div class="card-body p-5">
+                <form method="post" id="CampaignForm" class="row">
+                    <h5 class="text-center pb-3">TELEGRAM CAMPAIGN</h5>
+                    <input id="BotCampaignID" name="BotCampaignID" type="hidden" value="@TeleCampaign?.ID">
+                    @* <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                        <div class="info pb-2 d-flex flex-column">
+                            <p class="p-0 m-0 w-100 text-left fw-bold">Finish</p>
+                            <div class="d-flex justify-content-center">
+                                <input class="form-control" type="text" id="BotCampaignImageURL" name="BotCampaignImageURL" value="@TeleCampaign?.ImageURL">
+                            </div>
+                        </div>
+                        <div class="info pb-2 d-flex flex-column">
+                            <p class="p-0 m-0 w-100 text-left  fw-bold">Total Account</p>
+                            <div class="d-flex justify-content-center">
+                                <input class="form-control" type="text" id="BotCampaignImageURL" name="BotCampaignImageURL" value="@TeleCampaign?.ImageURL">
+                            </div>
+                        </div>
+                    </div> *@
+                    <div class="info">
+                        <strong>Image URL: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <input class="form-control" type="text" id="BotCampaignImageURL" name="BotCampaignImageURL" value="@TeleCampaign?.ImageURL">
+                        </div>
+                    </div>
+                    <div class="info">
+                        <strong>Content: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <textarea rows="3" class="form-control" type="text" id="BotCampaignContent" name="BotCampaignContent">@TeleCampaign?.Content</textarea>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <strong>Inline Keyboard: </strong>
+                        <div class="d-flex justify-content-center gap-2">
+                            <textarea rows="3" class="form-control" type="text" id="BotCampaignInlineKeyboard" name="BotCampaignInlineKeyboard">@TeleCampaign?.InlineKeyboard</textarea>
+                        </div>
+                    </div>
+                    @if (@TeleCampaign!=null)
+                    {
+                        if (@TeleCampaign?.iRun == true)
+                        {
+                            <div class="info">
+                                <div class="d-flex justify-content-center ">
+                                    <button type="button" id="SubmitTelegramAccountSettingButton" class="btn btn-sm btn-danger rounded-3">RUNNING</button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="info">
+                                <div class="d-flex justify-content-center ">
+                                    <button type="button" id="SubmitTelegramAccountSettingButton" class="btn btn-sm btn-light rounded-3">STOP</button>
+                                </div>
+                            </div>
+                        }
+
+                    }else
+                    {
+                        <div class="info">
+                            <div class="d-flex justify-content-center ">
+                                <button type="button" id="btnUpdateTelegramCampaign" class="btn btn-sm btn-info rounded-3">Update</button>
+                            </div>
+                        </div>
+                    }
+                    
                 </form>
             </div>
         </div>
@@ -382,6 +451,23 @@
                 }
             });
         }
+
+        $('#btnUpdateTelegramCampaign').click(function(){
+            $('#BotCampaignID').val($('#ID').val());
+            var form = $('#CampaignForm');
+            $.ajax({
+                type: 'POST',
+                url: '/TeleBot/SubmitTelegramCampaignForm',
+                data: form.serialize(),
+                success: function (result) {
+                    alert(JSON.stringify(result));
+                    //location.reload();
+                },
+                error: function (error) {
+                    toastr.error("Lỗi cập nhật");
+                }
+            });
+        });
 
     </script>
 }

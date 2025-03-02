@@ -25,6 +25,8 @@ namespace ADMIN.Services
         Task<ResponseDTO> AddNewTelegramResponse(TelegramResponseDTO telegramResponseDTO);
         Task<ResponseDTO> GetTelegramResponseByIDAsync(Guid iD);
         Task<ResponseDTO> UpdateTelegramResponse(TelegramResponseDTO responseDTO);
+
+        Task<ResponseDTO> GetTeleCampaignByBotIDAsync(Guid iD);
     }
 
     public class TeleBotService : ITeleBotService
@@ -120,6 +122,15 @@ namespace ADMIN.Services
                 APIType = SD.APIType.PUT,
                 Data = responseDTO,
                 Url = $"{_apiEndPointConstant.API_BOT_SHARE_TELE_ENDPOINT}/api/TelegramResponse",
+            });
+        }
+
+        public async Task<ResponseDTO> GetTeleCampaignByBotIDAsync(Guid BotID)
+        {
+            return await _baseService.BaseSendAsync(new RequestDTO()
+            {
+                APIType = SD.APIType.GET,
+                Url = $"{_apiEndPointConstant.API_BOT_SHARE_TELE_ENDPOINT}/api/TelegramCampaign/GetByBotID?BotID={BotID}",
             });
         }
     }

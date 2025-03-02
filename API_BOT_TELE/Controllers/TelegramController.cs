@@ -498,23 +498,36 @@ namespace TELEBOT_CSKH.Controllers
                                                                     .FirstOrDefaultAsync();
                     if (_telegramCustomer!=null)
                     {
-                        if (update.callback_query.data == "GetAFFLink")
+                        switch (update.callback_query.data)
                         {
-                            StringBuilder sb = new StringBuilder();
-                            sb.AppendLine($"Đây là link chia sẻ của bạn! Hãy nhanh tay chia sẻ nó với bạn bè và người thân để nhận phần thưởng hấp dẫn ngay hôm nay. Đừng bỏ lỡ cơ hội này!\n");
-                            sb.AppendLine($"<a href=\"https://t.me/{_telegramAccount.UserName.Substring(1)}?start=aff{_telegramCustomer.TelegramID}{Site}\">https://t.me/{_telegramAccount.UserName.Substring(1)}?start=aff{_telegramCustomer.TelegramID}{Site}</a>");
+                            case "GetAFFLink":
+                                StringBuilder affLinkStringBuilder = new StringBuilder();
+                                affLinkStringBuilder.AppendLine($"Đây là link chia sẻ của bạn! Hãy nhanh tay chia sẻ nó với bạn bè và người thân để nhận phần thưởng hấp dẫn ngay hôm nay. Đừng bỏ lỡ cơ hội này!\n");
+                                affLinkStringBuilder.AppendLine($"<a href=\"https://t.me/{_telegramAccount.UserName.Substring(1)}?start=aff{_telegramCustomer.TelegramID}{Site}\">https://t.me/{_telegramAccount.UserName.Substring(1)}?start=aff{_telegramCustomer.TelegramID}{Site}</a>");
 
-                            await _telegramServices.SendTelegramMessageAsync(_telegramAccount.Token, update.callback_query.from.id, null, sb.ToString(), null);
-                           
-                            return Ok();
+                                await _telegramServices.SendTelegramMessageAsync(_telegramAccount.Token, update.callback_query.from.id, null, affLinkStringBuilder.ToString(), null);
+                                break;
+                            case "GetAFFCode":
+                                StringBuilder getCodeLStringBuilder = new StringBuilder();
+                                getCodeLStringBuilder.AppendLine($"✨🔥 KẾT QUẢ CHIA SẺ LINK - RINH GIFTCODE {Site}! 🔥✨\n");
+                                if (_telegramCustomer.ShareCount >= 15)
+                                {
+                                    getCodeLStringBuilder.AppendLine($"✅ Tài khoản của bạn đã chia sẻ {_telegramCustomer.ShareCount}/15 lượt. Quý khách vui lòng liên hệ bộ CSKH để nhận thưởng! ⏳✨\n");
+                                }
+                                else
+                                {
+                                    getCodeLStringBuilder.AppendLine($"Tài khoản của bạn đã chia sẻ {_telegramCustomer.ShareCount}/15 lượt. Hãy nhanh tay hoàn thành ngay trước khi chương trình kết thúc! ⏳✨\n");
+                                }
+                                getCodeLStringBuilder.AppendLine("🎉 Cảm ơn tất cả các bạn đã tham gia và đóng góp, sự ủng hộ của các bạn là động lực to lớn cho chúng tôi! 💖");
+
+                                await _telegramServices.SendTelegramMessageAsync(_telegramAccount.Token, update.callback_query.from.id, null, getCodeLStringBuilder.ToString(), null);
+                                break;
+                            default:
+                                break;
                         }
-
-                        //if (update.callback_query.data == "GetAFFCode")
-                        //{
-                        //    await HandleGetCodeAsync(update, Site, BotID);
-                        //    return Ok();
-                        //}
+                        
                         Console.WriteLine($"{update.callback_query.data}");
+                        return Ok();
                     }
                 }
 

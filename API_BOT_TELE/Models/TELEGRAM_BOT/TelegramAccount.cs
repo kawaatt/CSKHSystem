@@ -16,6 +16,7 @@ namespace TELEBOT_CSKH.Models.TELEGRAM_BOT
         public bool Status { get; set; }
         public string? KeyboardData { get; set; }
         public string System { get; set; }
+        public bool fRunCampaign { get; set; } = false;
     }
 
     public class TelegramAccountDTO
@@ -31,5 +32,6 @@ namespace TELEBOT_CSKH.Models.TELEGRAM_BOT
         public bool Status { get; set; }
         public string? KeyboardData { get; set; }
         public string System { get; set; }
+        public bool fRunCampaign { get; set; } = false;
     }
 }

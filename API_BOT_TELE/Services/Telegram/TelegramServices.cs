@@ -13,6 +13,7 @@ using System;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Text.Json.Nodes;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TELEBOT_CSKH.Services.Telegram
 {
@@ -152,7 +153,7 @@ namespace TELEBOT_CSKH.Services.Telegram
             RequestDTO requestDTO = new RequestDTO();
             requestDTO.APIType = APIType.POST;
             
-            if (UploadImageURL!=null)
+            if (!UploadImageURL.IsNullOrEmpty())
             {
                 requestDTO.Url = $"https://api.telegram.org/bot{Token}/sendPhoto";
                 if (KeyBoard!=null)
