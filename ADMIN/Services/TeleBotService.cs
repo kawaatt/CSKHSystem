@@ -26,7 +26,9 @@ namespace ADMIN.Services
         Task<ResponseDTO> GetTelegramResponseByIDAsync(Guid iD);
         Task<ResponseDTO> UpdateTelegramResponse(TelegramResponseDTO responseDTO);
 
+        //TelegramCampaign Services
         Task<ResponseDTO> GetTeleCampaignByBotIDAsync(Guid iD);
+        Task<ResponseDTO> PostTelegramCampaignAsync(TelegramCampaignDTO telegramCampaign);
     }
 
     public class TeleBotService : ITeleBotService
@@ -132,6 +134,11 @@ namespace ADMIN.Services
                 APIType = SD.APIType.GET,
                 Url = $"{_apiEndPointConstant.API_BOT_SHARE_TELE_ENDPOINT}/api/TelegramCampaign/GetByBotID?BotID={BotID}",
             });
+        }
+
+        public Task<ResponseDTO> PostTelegramCampaignAsync(TelegramCampaignDTO telegramCampaign)
+        {
+            throw new NotImplementedException();
         }
     }
 
